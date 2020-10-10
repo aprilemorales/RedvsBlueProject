@@ -29,7 +29,7 @@ KQL Search:
 
 `url.path: "/company_folders/secret_folder"`
 
-In the Red Team attack a secret folder. Time to look at that interaction between these two machines. Some questions to answer:
+In the Red Team attack a secret folder was found. Time to look at that interaction between these two machines. Some questions to answer:
 
 - How many requests were made to this directory? At what time and from which IP address(es)?
     - 10,148 to 15,650 hits were found depending on filebeat or packetbeat. These GET requests happened at 23:34 from one IP being 192.168.1.90.
